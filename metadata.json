@@ -1,0 +1,6 @@
+{
+  "name": "Liora Store",
+  "description": "متجر رقمي احترافي للمنتجات الرقمية وشحن الألعاب والبطاقات",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

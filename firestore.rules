@@ -1,0 +1,129 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function getUserRole() {
+      return getUserData().role;
+    }
+
+    function isAdminOrOwner() {
+      return isAuthenticated() && (
+        getUserRole() == 'admin' || 
+        getUserRole() == 'owner' || 
+        request.auth.token.email.matches('.*admin.*') || 
+        request.auth.token.email.matches('.*owner.*') ||
+        request.auth.token.email == 'hamoisback.777@gmail.com'
+      );
+    }
+
+    function isOwner() {
+      return isAuthenticated() && (
+        getUserRole() == 'owner' || 
+        request.auth.token.email.matches('.*owner.*') ||
+        request.auth.token.email == 'hamoisback.777@gmail.com'
+      );
+    }
+
+    function isCustomerOwner(customerId) {
+      return isAuthenticated() && request.auth.uid == customerId;
+    }
+
+    // ========================================
+    // Users Collection
+    // ========================================
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      // Users can update their own profile (name, phone, points), but CANNOT elevate their own role unless Owner
+      allow update: if (
+        isAuthenticated() && request.auth.uid == userId && 
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']))
+      ) || isOwner();
+      allow delete: if isOwner();
+    }
+
+    // ========================================
+    // Support Conversations Collection
+    // conversations/{conversationId}
+    // ========================================
+    match /conversations/{conversationId} {
+      // Admin and Owner can view all conversations.
+      // Customer can ONLY view their own conversation.
+      allow read: if isAdminOrOwner() || 
+                     (isAuthenticated() && (request.auth.uid == conversationId || resource.data.customerId == request.auth.uid));
+
+      // Automatic creation by customer for themselves or by staff
+      allow create: if isAuthenticated() && (
+        (request.auth.uid == conversationId && request.resource.data.customerId == request.auth.uid) ||
+        isAdminOrOwner()
+      );
+
+      // Customer can update lastMessage/lastMessageAt/unread status of their own conversation
+      // Admin/Owner can update any conversation
+      allow update: if isAdminOrOwner() || 
+                       (isAuthenticated() && (request.auth.uid == conversationId || resource.data.customerId == request.auth.uid));
+
+      allow delete: if isOwner();
+
+      // ========================================
+      // Messages Subcollection
+      // conversations/{conversationId}/messages/{messageId}
+      // ========================================
+      match /messages/{messageId} {
+        // Admin & Owner can read all messages.
+        // Customer can ONLY read messages inside their own conversation.
+        allow read: if isAdminOrOwner() || 
+                       (isAuthenticated() && request.auth.uid == conversationId);
+
+        // Customer can only write messages with senderRole == 'customer' in their own conversation.
+        // Admin & Owner can write messages with admin/owner senderRole.
+        allow create: if (
+          isAuthenticated() && 
+          request.auth.uid == conversationId && 
+          request.resource.data.customerId == request.auth.uid &&
+          request.resource.data.senderRole == 'customer'
+        ) || isAdminOrOwner();
+
+        allow update, delete: if isAdminOrOwner();
+      }
+    }
+
+    // ========================================
+    // Orders Collection
+    // ========================================
+    match /orders/{orderId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAdminOrOwner() || (isAuthenticated() && resource.data.userEmail == request.auth.token.email);
+      allow delete: if isOwner();
+    }
+
+    // ========================================
+    // Products & Categories
+    // ========================================
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdminOrOwner();
+    }
+
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if isAdminOrOwner();
+    }
+
+    // Settings
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdminOrOwner();
+    }
+  }
+}
