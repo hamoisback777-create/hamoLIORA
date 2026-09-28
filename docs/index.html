@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Liora Store — المتجر الرقمي الاحترافي</title>
+  <meta name="description" content="متجر رقمي احترافي للمنتجات الرقمية وشحن الألعاب والبطاقات" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div class="gradient-overlay"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">
+        <div class="logo">LIORA</div>
+        <div class="tag">المتجر الرقمي الاحترافي</div>
+      </div>
+      <nav class="nav">
+        <a href="#features">المزايا</a>
+        <a href="#pricing">الخطط</a>
+        <a href="#contact">تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <h1>بيع وشراء المنتجات الرقمية بسهولة وأمان</h1>
+          <p>منصة احترافية لبيع الألعاب، بطاقات الشحن، والمنتجات الرقمية مع بوابة دفع آمنة وإدارة سهلة للمنتجات.</p>
+          <div class="actions">
+            <a class="btn primary" href="#pricing">ابدأ الآن</a>
+            <a class="btn ghost" href="#features">المزيد</a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="card">
+            <h3>حزمة تجريبية</h3>
+            <p class="price">مجاني</p>
+            <p class="muted">ابدأ بعرض منتجاتك فوراً</p>
+            <a class="btn outline" href="#contact">اطلب عرض</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features container">
+      <h2>لماذا LIORA؟</h2>
+      <div class="grid">
+        <div class="feature">
+          <h4>تصميم احترافي</h4>
+          <p>واجهة مستخدم أنيقة وسهلة الاستخدام لزيادة تحويل الزوار إلى مشترين.</p>
+        </div>
+        <div class="feature">
+          <h4>دفع آمن</h4>
+          <p>تكامل مع بوابات دفع معروفة وحماية للمشتريات.</p>
+        </div>
+        <div class="feature">
+          <h4>لوحة تحكم متقدمة</h4>
+          <p>إدارة المنتجات، الطلبات، وكوبونات من مكان واحد.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="pricing container">
+      <h2>الخطط</h2>
+      <div class="grid">
+        <div class="plan">
+          <h3>اساسي</h3>
+          <p class="price">$0</p>
+          <ul>
+            <li>قائمة منتجات غير محدودة</li>
+            <li>دعم عبر البريد الإلكتروني</li>
+          </ul>
+          <a class="btn primary" href="#contact">اختر</a>
+        </div>
+        <div class="plan featured">
+          <h3>اشتراك شهري</h3>
+          <p class="price">$19/mo</p>
+          <ul>
+            <li>تحليلات متقدمة</li>
+            <li>أولوية الدعم</li>
+            <li>ميزات تسويق</li>
+          </ul>
+          <a class="btn primary" href="#contact">اشترك</a>
+        </div>
+        <div class="plan">
+          <h3>مخصص</h3>
+          <p class="price">متفق عليه</p>
+          <ul>
+            <li>حلول مخصصة</li>
+            <li>تخصيص حسب متطلباتك</li>
+          </ul>
+          <a class="btn outline" href="#contact">تواصل</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact container">
+      <h2>تواصل معنا</h2>
+      <p>هل تريد نسخة مخصصة أو نشر المتجر الخاص بك؟ أرسل لنا رسالة وسنعاود التواصل.</p>
+      <form class="contact-form" onsubmit="handleContact(event)">
+        <input name="name" placeholder="اسمك" required>
+        <input name="email" type="email" placeholder="بريدك الإلكتروني" required>
+        <textarea name="message" placeholder="رسالتك" required></textarea>
+        <button class="btn primary" type="submit">أرسل</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© 2026 LIORA — كل الحقوق محفوظة</div>
+      <div class="muted">تم إنشاؤه من مشروع Android الأصلي — تم تحويله إلى موقع ويب تجريبي</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
