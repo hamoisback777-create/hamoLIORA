@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import AdminProducts from './admin/AdminProducts'
 import AdminOrders from './admin/AdminOrders'
 import AdminDashboard from './admin/AdminDashboard'
+import AdminProductForm from './admin/AdminProductForm'
 
 export default function AdminPage(){
   return (
@@ -17,9 +18,11 @@ export default function AdminPage(){
         </aside>
         <main className="col-span-3">
           <Routes>
-            <Route path="/" element={<AdminDashboard/>} />
-            <Route path="/products" element={<AdminProducts/>} />
-            <Route path="/orders" element={<AdminOrders/>} />
+            <Route path="/admin" element={<AdminDashboard/>} />
+            <Route path="/admin/products" element={<AdminProducts/>} />
+            <Route path="/admin/products/new" element={<AdminProductForm/>} />
+            <Route path="/admin/products/edit/:id" element={<AdminProductForm edit/>} />
+            <Route path="/admin/orders" element={<AdminOrders/>} />
           </Routes>
         </main>
       </div>
