@@ -1,18 +1,11 @@
-*.iml
-.gradle
-.kotlin
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+# Ignore local env files for web
+/web/.env.local
+
+# Node modules and build output for web
+/web/node_modules
+/web/dist
+
+# general
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-.env
-debug.keystore
+/.idea
+.vscode
