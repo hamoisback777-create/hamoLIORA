@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{--bg:#0b0f14;--muted:#9fb3c8;--icy:#7be3ff}
+html,body,#root{height:100%}
+body{background:linear-gradient(180deg, rgba(11,15,20,1) 0%, rgba(10,12,16,1) 100%);font-family: Cairo, sans-serif}
+
+/* header safe area */
+.header-safe{padding-top:env(safe-area-inset-top)}
+
+/* utility for constrained content */
+.container{max-width:1200px;margin-inline:auto;padding-inline:20px}
+
+/* basic scroll behaviour */
+*{scroll-behavior:smooth}
+
+/* small card shadows but not heavy */
+.card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:12px}
+
+/* product image container */
+.product-image{display:flex;align-items:center;justify-content:center;padding:14px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));border-radius:10px}
+
+/* disabled badge */
+.unavailable-badge{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px;border-radius:8px}
